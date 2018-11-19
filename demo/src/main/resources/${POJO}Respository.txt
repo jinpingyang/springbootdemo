@@ -1,0 +1,19 @@
+package com.hozonauto.pivot.ota.dao.respository;
+
+import com.hozonauto.pivot.ota.dto.${POJO}Dto;
+import com.hozonauto.pivot.ota.model.${POJO};
+import com.hozonauto.pivot.systemframework.dao.BaseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ${POJO}Respository extends BaseRepository<${POJO}, Long> {
+
+    @Query(value = "${GETBYID}")
+    ${POJO}Dto getById(Long id);
+
+    @Query(value = "${GETBYALL}")
+    Page<${POJO}Dto> getPageByAll(Pageable pageable);
+}

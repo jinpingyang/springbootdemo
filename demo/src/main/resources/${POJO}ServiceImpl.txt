@@ -1,0 +1,25 @@
+package com.hozonauto.pivot.ota.service.impl;
+
+import com.hozonauto.pivot.ota.dao.respository.${POJO}Respository;
+import com.hozonauto.pivot.ota.dto.${POJO}Dto;
+import com.hozonauto.pivot.ota.model.${POJO};
+import com.hozonauto.pivot.ota.service.${POJO}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+public class ${POJO}ServiceImpl extends BaseServiceImpl<${POJO},Long> implements ${POJO}Service {
+    @Autowired
+    private ${POJO}Respository ${PRO}Respository;
+
+    @Override
+    public ${POJO}Dto getById(Long id) {
+
+        return ${POJO}Respository.getById(id);
+    }
+
+    @Override
+    public Page<${POJO}Dto> getPageByAll(Pageable pageable) {
+        return ${POJO}Respository.getPageByAll(pageable);
+    }
+}

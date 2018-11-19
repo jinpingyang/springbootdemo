@@ -1,0 +1,13 @@
+package com.hozonauto.pivot.ota.service;
+
+import com.hozonauto.pivot.ota.dto.${POJO}Dto;
+import com.hozonauto.pivot.ota.model.${POJO};
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+public interface ${POJO}Service extends BaseService<${POJO},Long>{
+
+    ${POJO}Dto getById(Long id);
+
+    Page<${POJO}Dto> getPageByAll(Pageable pageable);
+}
