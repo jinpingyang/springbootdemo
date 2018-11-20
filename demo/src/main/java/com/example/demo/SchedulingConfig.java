@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 //@Configuration
 //@EnableScheduling//开启对定时任务支持
-//@Async//每个任务在不同的线程中
+//@Async //每个任务在不同的线程中
 public class SchedulingConfig {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
