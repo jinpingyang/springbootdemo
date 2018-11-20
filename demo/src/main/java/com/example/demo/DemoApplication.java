@@ -21,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Controller
 @SpringBootApplication
 @EnableSwagger2
-@EnableCaching // 启动缓存
+@EnableCaching //启动缓存
 public class DemoApplication {
 	
 	@Autowired
