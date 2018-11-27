@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.example.demo.config.ConfigAutoConfiguration
+org.springframework.context.ApplicationListener=\
+com.example.demo.config.ConfigAutoConfiguration

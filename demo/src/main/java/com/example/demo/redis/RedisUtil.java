@@ -1,10 +1,14 @@
 package com.example.demo.redis;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
+
+import com.example.demo.entity.User;
 
 @Component
 public class RedisUtil {
@@ -17,18 +21,75 @@ public class RedisUtil {
 	
 	//存储对象类型
 	@Autowired
-	private RedisTemplate<String, String> redisTemplate;
+	private RedisTemplate<String, Object> redisTemplate;
 	
-	
+	/**
+	 * 判断token是否存在
+	 * @param key
+	 * @return
+	 */
 	public boolean hasKey(String key) {
 		return stringRedisTemplate.hasKey(key);
 	}
 	
-	public Object get(String key) {
-//		ValueOperations<String,String> operations = redisTemplate.opsForValue();
-//		String value = operations.get(key);
-      	return stringRedisTemplate.opsForValue().get(key);
+	public String getString(String key) {
+		return stringRedisTemplate.opsForValue().get(key);
 	}
+	
+	public boolean setString(String key,String value) {
+		try {
+			redisTemplate.opsForValue().set(key, value);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * 获取token
+	 * @param key
+	 * @return
+	 */
+	public Object get(String key) {
+		ValueOperations<String,Object> operations = redisTemplate.opsForValue();
+		return operations.get(key);
+	}
+	
+	/**
+	 * 保存token
+	 * @param key
+	 * @param object
+	 * @return
+	 */
+	public boolean set(String key,Object object) {
+		try {
+			redisTemplate.opsForValue().set(key, object, 30, TimeUnit.MINUTES);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * 刷新token
+	 * @param key
+	 * @return
+	 */
+	public boolean expire(String key) {
+		return redisTemplate.expire(key,30,TimeUnit.MINUTES);
+	}
+	
+	/**
+	 * 删除token
+	 * @param key
+	 * @return
+	 */
+	public boolean del(String key) {
+		return redisTemplate.delete(key);
+	}
+	
 	
 	/*
 	//Jedis操作redis

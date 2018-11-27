@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.annotation.AuthIgnore;
 import com.example.demo.service.UserService;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -36,18 +38,20 @@ public class DemoApplication {
 		System.out.println("启动。。。。。。。");
 	}
 	
-	@RequestMapping("/test1")
-	public String test1() {
+	@RequestMapping("/test")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String test() {
 		return "/index";
 	}
 	
-	@RequestMapping("/test")
-	public String test() {
-		return "index.jsp";
+	@RequestMapping("/test1")
+	public String test1() {
+		return "forward:index.jsp";
 	}
 	
 	@RequestMapping("/getUser")
 	@ResponseBody
+	@AuthIgnore //token验证
 	public User getUser() {
 		User user=new User();
 		user.setId(1);
@@ -89,5 +93,11 @@ public class DemoApplication {
 	@ResponseBody
 	public com.example.demo.entity.User findById(Integer id){
 		return userService.findById(id);
+	}
+	
+	@RequestMapping("/signin")
+	@ResponseBody
+	public String signin(){
+		return "登陆页面";
 	}
 }
